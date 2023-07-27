@@ -17,8 +17,8 @@ export default function BookmarkPage({
 }: {
   searchParams: { tab: string };
 }) {
-  const [data, setData] = useState();
-  const [listBookmark, setListBookmark] = useState([]);
+  const [data, setData] = useState<any>();
+  const [listBookmark, setListBookmark] = useState<any>([]);
   const [tabKat, setTabKat] = useState("default");
   const [ftch, setFtch] = useState(false);
 
@@ -49,7 +49,15 @@ export default function BookmarkPage({
       loadData();
       setFtch(false);
     }
-  }, [setData, setFtch, ftch, setListBookmark, tabKat, setTabKat]);
+  }, [
+    setData,
+    setFtch,
+    ftch,
+    setListBookmark,
+    tabKat,
+    setTabKat,
+    searchParams,
+  ]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     if (newValue == "addCollectionName") alert("baaa");
@@ -71,7 +79,7 @@ export default function BookmarkPage({
               aria-label="Collection Category"
               variant="scrollable"
             >
-              {listBookmark.map((v, i) => (
+              {listBookmark.map((v: any, i: number) => (
                 <Tab
                   label={v}
                   key={i}
@@ -96,6 +104,8 @@ export default function BookmarkPage({
         </TabContext>
       </Box>
       <CardIndex
+        listTitle=""
+        curPage=""
         anime={data}
         modeBookmark="hapus"
         refetch={handleRefetch}

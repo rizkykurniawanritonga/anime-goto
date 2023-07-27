@@ -24,7 +24,7 @@ import {
 } from "@/function/storage/bookmark";
 import _ from "lodash";
 
-export default function bookmarkDialog({
+export default function BookmarkDialog({
   animeData,
   open,
   handleClose,
@@ -126,7 +126,7 @@ export default function bookmarkDialog({
       loadData();
       setOpenNewCol(false);
     }
-  }, [openNewCol, setOpenNewCol]);
+  }, [openNewCol, setOpenNewCol, animeData]);
   return (
     <>
       <Modal open={open} handleClose={() => handleClose()} modalWidth={300}>

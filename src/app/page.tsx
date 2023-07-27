@@ -10,11 +10,12 @@ export const metadata: Metadata = {
 export default async function Home({
   searchParams,
 }: {
-  searchParams: { page: number };
+  searchParams: { page: string };
 }) {
   const anime = await getAnimePages({
-    page: searchParams.page,
+    page: parseInt(searchParams.page),
     perPage: 12,
+    search: "",
   });
 
   return (
@@ -24,6 +25,8 @@ export default async function Home({
         anime={anime?.Page}
         modeBookmark="add"
         curPage={searchParams.page}
+        curCategory=""
+        refetch=""
       />
       {/* <pre>{JSON.stringify(anime, null, 2)}</pre> */}
     </>

@@ -20,20 +20,26 @@ import Checkbox from "@mui/material/Checkbox";
 import AddBookmarkDialog from "@/components/BookmarkModal";
 import SingleActionBookmark from "@/components/singleBtnBookmark";
 
-export default function home({
+type PropsMedia = {
+  media: any[];
+  pageInfo: {
+    lastPage: any;
+  };
+};
+export default function Home({
   listTitle = "Anime Terbaru",
   curCategory = "",
   anime,
-  curPage = 1,
+  curPage = "1",
   modeBookmark = "add",
   refetch,
 }: {
   listTitle: string;
-  anime: object[];
+  anime: PropsMedia;
   modeBookmark: string;
   refetch: any;
   curCategory: string;
-  curPage: number;
+  curPage: string;
 }) {
   const rtr = useRouter();
   const [dataSelect, setDataSelect] = useState<any[]>([]);
@@ -189,7 +195,6 @@ export default function home({
         {anime?.pageInfo && (
           <Pagination
             count={anime.pageInfo.lastPage}
-            color="success"
             page={parseInt(curPage)}
             sx={{ marginTop: 2, marginBottom: 10, marginX: 2 }}
             onChange={paginationHandler}

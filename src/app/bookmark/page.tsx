@@ -29,9 +29,9 @@ import {
 
 import DialogModal from "@/components/videoModal";
 
-export default function detailCollection() {
-  const [data, setData] = useState();
-  const [listBookmark, setListBookmark] = useState([]);
+export default function DetailCollection() {
+  const [data, setData] = useState<any>();
+  const [listBookmark, setListBookmark] = useState<any>([]);
   const [snackbar, setSnackbar] = useState<any>(false);
   const [ftch, setFtch] = useState(false);
   const [newCol, setNewCol] = useState<boolean>(false);
@@ -105,7 +105,7 @@ export default function detailCollection() {
           </Grid>
         </Grid>
         <Grid container spacing={2}>
-          {listBookmark.map((v, i) => (
+          {listBookmark.map((v: any, i: number) => (
             <Grid item md={6} lg={3} xs={12} key={i}>
               <Card sx={{ display: "flex", minHeight: "130px" }}>
                 <Box flex={1} sx={{ position: "relative" }}>
@@ -125,7 +125,8 @@ export default function detailCollection() {
                         component="div"
                       >
                         {_.take(data?.media[v], 2).map(
-                          (lc, ic) => `${lc.title.english || lc.title.native}, `
+                          (lc: any) =>
+                            `${lc.title.english || lc.title.native}, `
                         )}
                       </Typography>
                     )}

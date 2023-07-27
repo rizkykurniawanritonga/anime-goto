@@ -106,7 +106,12 @@ export default async function DetailAnime({ params }: Props) {
             </Typography>
           </Grid>
           <Grid item xs={6} sx={{ textAlign: "right" }}>
-            <SingleBookmarkAction data={anime.Media}>
+            <SingleBookmarkAction
+              curCollection=""
+              modeBookmark="add"
+              refetch=""
+              data={anime.Media}
+            >
               <Button variant="outlined" startIcon={<BookmarkBorderIcon />}>
                 Add To Collection
               </Button>
@@ -119,26 +124,13 @@ export default async function DetailAnime({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: anime.Media.description }}
           sx={{ marginBottom: 3 }}
         />
-        {anime.Media.genres.map((v, i) => (
+        {anime.Media.genres.map((v: any, i: number) => (
           <Chip label={v} key={i} size="small" sx={{ marginRight: 1 }} />
         ))}
         <Typography variant="subtitle2" gutterBottom sx={{ marginTop: 4 }}>
           Collection:
         </Typography>
         <WhereAddedCollection id={anime.Media.id} />
-        {anime.Media?.trailer && (
-          <VideoModal>
-            <iframe
-              width="100%"
-              height="400"
-              src={`https://www.youtube.com/embed/${anime.Media.trailer.id}`}
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            ></iframe>
-          </VideoModal>
-        )}
       </Container>
       {/* <pre>{JSON.stringify(anime, null, 2)}</pre> */}
     </>

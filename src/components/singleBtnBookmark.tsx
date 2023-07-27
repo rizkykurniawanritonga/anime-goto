@@ -5,7 +5,7 @@ import Snackbar from "@mui/material/Snackbar";
 import { useState } from "react";
 import AddBookmarkDialog from "@/components/BookmarkModal";
 
-export default function sngleBtnBookmark({
+export default function SngleBtnBookmark({
   children,
   data,
   refetch,

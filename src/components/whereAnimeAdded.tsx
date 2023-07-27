@@ -5,7 +5,7 @@ import Chip from "@mui/material/Chip";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export default function whereadd({ id }: { id: string }) {
+export default function WhereAdd({ id }: { id: string }) {
   const [listed, setListed] = useState<any[]>([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -22,7 +22,7 @@ export default function whereadd({ id }: { id: string }) {
         .catch(console.error);
     }
     loadData();
-  }, [setListed]);
+  }, [setListed, id]);
   return listed.map((v, i) => (
     <Link
       href={`/bookmark/${v}`}

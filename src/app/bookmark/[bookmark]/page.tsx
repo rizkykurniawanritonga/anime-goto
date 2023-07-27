@@ -14,12 +14,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useRouter } from "next/navigation";
 
 type Props = {
-  params: { bookmark: number };
+  params: { bookmark: string };
 };
 
 export default function BookmarkPage({ params }: Props) {
   const { push } = useRouter();
-  const [data, setData] = useState();
+  const [data, setData] = useState<any>("");
   const [tabKat, setTabKat] = useState("default");
   const [ftch, setFtch] = useState(false);
   const [snackbar, setSnackbar] = useState<any>(false);
@@ -34,9 +34,10 @@ export default function BookmarkPage({ params }: Props) {
     function loadData() {
       fetchData()
         .then((v) => {
-          setData({
+          const arg = {
             media: v.bookmark[decodeURI(params.bookmark)],
-          });
+          };
+          setData(arg);
         })
         .catch(console.error);
     }
@@ -45,7 +46,7 @@ export default function BookmarkPage({ params }: Props) {
       loadData();
       setFtch(false);
     }
-  }, [setData, setFtch, ftch, tabKat, setTabKat]);
+  }, [setData, setFtch, ftch, tabKat, setTabKat, params]);
   async function handleEditCollection() {
     let newName = prompt(
       "Silahkan Edit nama Collection",
@@ -89,6 +90,8 @@ export default function BookmarkPage({ params }: Props) {
         Jumlah: {data?.media?.length}
       </Typography>
       <CardIndex
+        listTitle=""
+        curPage=""
         anime={data}
         modeBookmark="hapus"
         refetch={handleRefetch}

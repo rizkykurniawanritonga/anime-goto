@@ -1,7 +1,13 @@
 import Header from "@/components/header";
 import BottomNav from "@/components/bottomNav";
 import Container from "@mui/material/Container";
-import TestLoading from "./loading";
+import { Roboto } from "next/font/google";
+
+const roboto = Roboto({
+  weight: ["300", "400", "500", "700"],
+  subsets: ["latin"],
+  display: "swap",
+});
 export default function RootLayout({
   children,
 }: {
@@ -9,17 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        />
-      </head>
-      <body style={{ margin: 0 }}>
+      <body style={{ margin: 0 }} className={roboto.className}>
         <Header />
         <Container
           maxWidth={false}

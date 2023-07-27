@@ -7,7 +7,7 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { useState } from "react";
 import Paper from "@mui/material/Paper";
 import { useRouter } from "next/navigation";
-export default function bottomNav() {
+export default function BottomNav() {
   const { push } = useRouter();
   const [value, setValue] = useState("/");
 
