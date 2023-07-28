@@ -3,7 +3,7 @@ import {
   createNewList,
   deleteCollection,
   editNameCollection,
-  readStorage,
+  readBookmarkData,
 } from "@/function/storage/bookmark";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -38,10 +38,11 @@ export default function DetailCollection() {
   const [newColName, setNewColName] = useState<string>("");
   useEffect(() => {
     const fetchData = async () => {
-      const bmrk = await readStorage("bookmark");
+      const sdsd = await readBookmarkData();
+      console.log(sdsd);
       return {
-        bookmark: bmrk,
-        list: _.keys(bmrk),
+        bookmark: sdsd,
+        list: _.keys(sdsd),
       };
     };
     function loadData() {
@@ -126,7 +127,7 @@ export default function DetailCollection() {
                       >
                         {_.take(data?.media[v], 2).map(
                           (lc: any) =>
-                            `${lc.title.english || lc.title.native}, `
+                            `${lc.data.title.english || lc.data.title.native}, `
                         )}
                       </Typography>
                     )}
@@ -163,7 +164,7 @@ export default function DetailCollection() {
                     component="img"
                     sx={{ width: 150, height: 150 }}
                     image={
-                      data.media[v][_.random(0, data.media[v].length - 1)]
+                      data.media[v][_.random(0, data.media[v].length - 1)].data
                         .coverImage.extraLarge
                     }
                   />
@@ -172,7 +173,6 @@ export default function DetailCollection() {
             </Grid>
           ))}
         </Grid>
-        {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
       </Container>
       <DialogModal
         open={newCol}

@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function WhereAdd({ id }: { id: string }) {
-  const [listed, setListed] = useState<any[]>([]);
+  const [listed, setListed] = useState<any>([]);
   useEffect(() => {
     const fetchData = async () => {
       const listed = await whereAnimeAdded(id);
@@ -23,7 +23,7 @@ export default function WhereAdd({ id }: { id: string }) {
     }
     loadData();
   }, [setListed, id]);
-  return listed.map((v, i) => (
+  return listed.map((v: any, i: number) => (
     <Link
       href={`/bookmark/${v}`}
       title={`Buka Collection ${v}`}

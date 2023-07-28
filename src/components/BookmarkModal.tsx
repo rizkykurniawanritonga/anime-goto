@@ -35,7 +35,7 @@ export default function BookmarkDialog({
 }) {
   const [snackbar, setSnackbar] = useState<any>(false);
   const [bmrkList, setBookmarkList] = useState<any>([]);
-  const [arrListCheck, setArrListCheck] = useState<any>([]);
+  const [arrListCheck, setArrListCheck] = useState<string[]>([]);
   const [openNewCol, setOpenNewCol] = useState<any>(false);
 
   const [newList, setNewList] = useState<any>("");
@@ -55,17 +55,23 @@ export default function BookmarkDialog({
   }
 
   function actArrList(data: string) {
+    var dtf: string[] = arrListCheck;
+    if (dtf[0] == "0") dtf.shift();
+
     if (_.includes(arrListCheck, data)) {
-      const dt = _.pull(arrListCheck, data);
-      setArrListCheck(dt);
+      dtf = _.pull(dtf, data);
     } else {
-      setArrListCheck([...arrListCheck, data]);
+      dtf.push(data);
     }
+    setArrListCheck(dtf);
   }
   async function handleSaveKeBookmark() {
     let dtscs: any[] = [];
     let dtfld: any[] = [];
     setSnackbar(false);
+
+    console.log(arrListCheck);
+
     for (let a = 0; a < animeData.length; a++) {
       for (let c = 0; c < arrListCheck.length; c++) {
         const addSt = await addBookmark(animeData[a], arrListCheck[c]);
@@ -126,7 +132,7 @@ export default function BookmarkDialog({
       loadData();
       setOpenNewCol(false);
     }
-  }, [openNewCol, setOpenNewCol, animeData]);
+  }, [openNewCol, setOpenNewCol]);
   return (
     <>
       <Modal open={open} handleClose={() => handleClose()} modalWidth={300}>
@@ -149,7 +155,7 @@ export default function BookmarkDialog({
                     <Checkbox
                       edge="start"
                       tabIndex={-1}
-                      defaultChecked={_.includes(arrListCheck, v)}
+                      // defaultChecked={_.includes(arrListCheck, v)}
                       disableRipple
                       inputProps={{ "aria-labelledby": labelId }}
                       color="success"

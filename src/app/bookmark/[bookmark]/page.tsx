@@ -1,6 +1,9 @@
 "use client";
 
-import { editNameCollection, readStorage } from "@/function/storage/bookmark";
+import {
+  editNameCollection,
+  findByAnimeListByColName,
+} from "@/function/storage/bookmark";
 import { useEffect, useState } from "react";
 import CardIndex from "../../_clientpage/cardIndex";
 
@@ -26,7 +29,7 @@ export default function BookmarkPage({ params }: Props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const bmrk = await readStorage("bookmark");
+      const bmrk = await findByAnimeListByColName(decodeURI(params.bookmark));
       return {
         bookmark: bmrk,
       };
@@ -34,8 +37,12 @@ export default function BookmarkPage({ params }: Props) {
     function loadData() {
       fetchData()
         .then((v) => {
+          var dt = [];
+          for (let i = 0; i < v.bookmark.length; i++) {
+            dt.push(v.bookmark[i].data);
+          }
           const arg = {
-            media: v.bookmark[decodeURI(params.bookmark)],
+            media: dt,
           };
           setData(arg);
         })
@@ -79,7 +86,6 @@ export default function BookmarkPage({ params }: Props) {
           <EditIcon sx={{ height: 20, width: 20 }} />
         </IconButton>
       </Typography>
-
       <Typography
         variant="subtitle2"
         gutterBottom

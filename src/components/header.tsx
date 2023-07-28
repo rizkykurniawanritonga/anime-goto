@@ -16,7 +16,7 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { readStorage } from "@/function/storage/bookmark";
+import { bookmarkList } from "@/function/storage/bookmark";
 import Button from "@mui/material/Button";
 
 const Search = styled("div")(({ theme }) => ({
@@ -169,7 +169,7 @@ export default function PrimarySearchAppBar() {
   );
   useEffect(() => {
     const fetchData = async () => {
-      return await readStorage("bookmark");
+      return await bookmarkList();
     };
     fetchData()
       .then((v) => {
