@@ -17,7 +17,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { bookmarkList } from "@/function/storage/bookmark";
-import Button from "@mui/material/Button";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -60,6 +60,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+  const { push } = useRouter();
+  const sprm = useSearchParams().get("query");
+  const [searchVal, setSearchVal] = useState<string>();
+  function submitSearchAction() {
+    push(`/search?query=${searchVal}`);
+  }
   const [countBookmark, setCountBookmark] = useState<any>([]);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -168,6 +174,7 @@ export default function PrimarySearchAppBar() {
     </Menu>
   );
   useEffect(() => {
+    sprm && setSearchVal(sprm);
     const fetchData = async () => {
       return await bookmarkList();
     };
@@ -176,7 +183,7 @@ export default function PrimarySearchAppBar() {
         setCountBookmark(v);
       })
       .catch(console.error);
-  }, [setCountBookmark]);
+  }, [setCountBookmark, sprm]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -196,16 +203,27 @@ export default function PrimarySearchAppBar() {
             </Typography>
           </Link>
           <Box sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}>
-            {/* <Search style={{ maxWidth: 400, margin: "0 auto" }}>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-              />
-            </Search> */}
-            <Link
+            <form
+              onSubmit={(e) => {
+                submitSearchAction();
+                e.preventDefault();
+              }}
+            >
+              <Search style={{ maxWidth: 400, margin: "0 auto" }}>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search…"
+                  inputProps={{ "aria-label": "search" }}
+                  value={searchVal}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
+                    setSearchVal(e.target.value);
+                  }}
+                />
+              </Search>
+            </form>
+            {/* <Link
               href={"/search"}
               style={{ textDecoration: "none", color: "white", flexGrow: 1 }}
             >
@@ -226,7 +244,7 @@ export default function PrimarySearchAppBar() {
               >
                 Search
               </Button>
-            </Link>
+            </Link> */}
           </Box>
           <Box
             sx={{

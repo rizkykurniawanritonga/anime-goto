@@ -113,6 +113,7 @@ query ($id: Int, $page: Int, $perPage: Int${
     variables: variables,
   });
   const fetch = await fetchAnime(bodyP);
+
   return fetch.data;
 }
 
