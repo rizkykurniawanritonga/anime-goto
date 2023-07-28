@@ -14,10 +14,10 @@ async function addBookmark(data: any, colname: string = "Tonton Nanti") {
   // const mksure = await coldata.toArray();
 
   // if (mksure) {
-  console.log("nama kolom" + colname);
+  // console.log("nama kolom" + colname);
 
   const fndCol = await col.where({ name: colname }).toArray();
-  console.log(fndCol);
+  // console.log(fndCol);
 
   const dup = await coldata
     .where({ idcol: fndCol[0].id, dataid: data.id })

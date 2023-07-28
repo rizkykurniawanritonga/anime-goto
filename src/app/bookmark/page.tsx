@@ -39,7 +39,7 @@ export default function DetailCollection() {
   useEffect(() => {
     const fetchData = async () => {
       const sdsd = await readBookmarkData();
-      console.log(sdsd);
+      // console.log(sdsd);
       return {
         bookmark: sdsd,
         list: _.keys(sdsd),

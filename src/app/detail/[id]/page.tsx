@@ -24,7 +24,7 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // fetch data
   const anim = await getOneAnime(params.id);
-  console.log(anim);
+  // console.log(anim);
 
   return {
     title:

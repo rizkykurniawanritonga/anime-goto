@@ -70,7 +70,7 @@ export default function BookmarkDialog({
     let dtfld: any[] = [];
     setSnackbar(false);
 
-    console.log(arrListCheck);
+    // console.log(arrListCheck);
 
     for (let a = 0; a < animeData.length; a++) {
       for (let c = 0; c < arrListCheck.length; c++) {
