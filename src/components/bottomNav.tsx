@@ -4,13 +4,17 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import WindowIcon from "@mui/icons-material/Window";
 import SearchIcon from "@mui/icons-material/Search";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Paper from "@mui/material/Paper";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 export default function BottomNav() {
   const { push } = useRouter();
-  const [value, setValue] = useState("/");
+  const pth = usePathname();
 
+  const [value, setValue] = useState("/");
+  useEffect(() => {
+    setValue(pth);
+  }, [pth]);
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     push(newValue);
     setValue(newValue);

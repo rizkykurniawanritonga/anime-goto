@@ -17,7 +17,8 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { bookmarkList } from "@/function/storage/bookmark";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import _ from "lodash";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -61,6 +62,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function PrimarySearchAppBar() {
   const { push } = useRouter();
+  const pth = usePathname();
   const sprm = useSearchParams().get("query");
   const [searchVal, setSearchVal] = useState<string>();
   function submitSearchAction() {
@@ -189,27 +191,45 @@ export default function PrimarySearchAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
         <Toolbar>
-          <Link
-            href={"/"}
-            style={{ textDecoration: "none", color: "white", flexGrow: 1 }}
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{
+              flexGrow: 1,
+              textAlign: { md: "left", xs: "center" },
+              display: {
+                xs: _.includes(pth, "/search") ? "none" : "",
+                sm: "block",
+              },
+            }}
           >
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ textAlign: { md: "left", xs: "center" } }}
+            <Link
+              href={"/"}
+              style={{
+                textDecoration: "none",
+                color: "white",
+              }}
             >
               Anime.in
-            </Typography>
-          </Link>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}>
+            </Link>
+          </Typography>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: {
+                xs: _.includes(pth, "/search") ? "" : "none",
+                sm: "block",
+              },
+            }}
+          >
             <form
               onSubmit={(e) => {
                 submitSearchAction();
                 e.preventDefault();
               }}
             >
-              <Search style={{ maxWidth: 400, margin: "0 auto" }}>
+              <Search sx={{ maxWidth: 400, marginX: "auto!important" }}>
                 <SearchIconWrapper>
                   <SearchIcon />
                 </SearchIconWrapper>
