@@ -4,7 +4,7 @@ import _ from "lodash";
 import HomePage from "../_clientpage/cardIndex";
 
 export const metadata: Metadata = {
-  title: "Anime.in",
+  title: "Search Page",
   description: "Halaman Anime Main",
 };
 export default async function Home({
